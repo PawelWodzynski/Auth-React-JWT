@@ -1,4 +1,4 @@
-package com.workflow.WorkFlowDEMO.data.entity.employee;
+package com.auth.jwt.data.entity.employee;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;

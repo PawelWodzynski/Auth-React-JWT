@@ -1,4 +1,4 @@
-package com.workflow.WorkFlowDEMO.data.dto.authorization;
+package com.auth.jwt.data.dto.authorization;
 
 import java.util.Arrays;
 import java.util.Objects;

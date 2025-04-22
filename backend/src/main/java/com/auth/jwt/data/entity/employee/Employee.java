@@ -1,20 +1,12 @@
-package com.workflow.WorkFlowDEMO.data.entity.employee;
+package com.auth.jwt.data.entity.employee;
 
-import com.workflow.WorkFlowDEMO.api.utils.validation.validators.employee.*;
-import com.workflow.WorkFlowDEMO.data.entity.todo.TodoDate;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "employee")
-@EmployeeIdValidation
-@EmployeeFirstNameValidation
-@EmployeeLastNameValidation
-@EmployeeEmailValidation
-@EmployeeRoleValidation
 public class Employee {
 
     @Id // Primary key
@@ -41,12 +33,7 @@ public class Employee {
     @JoinTable(name = "employee_roles", // Table for mapping roles
             joinColumns = @JoinColumn(name = "user_id"), // Owning side of the relationship
             inverseJoinColumns = @JoinColumn(name = "role_id")) // Inverse side of the relationship
-    private List<Role> roles; // Collection to store roles (typically ArrayList or LinkedHashMap)
-
-
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<TodoDate> todoDates;
-
+    private List<Role> roles; // Collection to store roles
 
     // Default constructor
     public Employee() {
@@ -128,16 +115,6 @@ public class Employee {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
-
-    public void addTodoDate(TodoDate todoDate){
-        if (todoDates == null){
-            todoDates = new ArrayList<>();
-        }
-
-        todoDates.add(todoDate);
-    }
-
 
     // Adding toString method for debugging
     @Override

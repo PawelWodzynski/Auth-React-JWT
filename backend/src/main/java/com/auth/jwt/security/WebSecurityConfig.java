@@ -1,4 +1,4 @@
-package com.workflow.WorkFlowDEMO.security;
+package com.auth.jwt.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -76,18 +76,12 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/login", "/register").permitAll()
-                                .requestMatchers("/workFlow/appCenter").hasRole("EMPLOYEE")
-                                .requestMatchers("/employees/**").hasRole("ADMIN")
-                                .requestMatchers("/employeeRequest/**").hasRole("ADMIN")
-                                .requestMatchers("/swagger-ui/**").hasRole("ADMIN")
-                                .requestMatchers("/v3/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthFilter(userAuthProvider), BasicAuthenticationFilter.class)
                 .exceptionHandling(exception ->
                         exception.authenticationEntryPoint(userAuthenticationEntryPoint))
                 .formLogin(form ->
-                        form.loginPage("/loginPage")
-                                .loginProcessingUrl("/authenticateTheUser")
+                        form.loginPage("/login")
                                 .permitAll())
                 .logout(logout ->
                         logout.permitAll())
@@ -99,6 +93,6 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer ignoringCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/employeeRequest/**","/roleRequest/**","/todoRequest/**");
+        return (web) -> web.ignoring().requestMatchers("/login", "/register");
     }
 }

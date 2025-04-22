@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS `workflow`;
+DROP DATABASE IF EXISTS `authjwt`;
 
-CREATE DATABASE IF NOT EXISTS `workflow`;
-USE `workflow`;
+CREATE DATABASE IF NOT EXISTS `authjwt`;
+USE `authjwt`;
 
 --
 -- Table structure for table `employee`
@@ -23,8 +23,6 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 -- NOTE: The passwords are encrypted using BCrypt
---
--- A generation tool is available at: https://bcrypt-generator.com/
 --
 -- Default passwords here are: admin
 --
@@ -89,73 +87,4 @@ VALUES
 (2, 2),
 (3, 1);
 
-
-
-CREATE TABLE `todo_date` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `month_number` int DEFAULT NULL,
-  `year` int DEFAULT NULL,
-  `employee_id` int DEFAULT NULL,
-  
-  PRIMARY KEY (`id`),
-  
-  KEY `FK_EMPLOYEE_idx` (`employee_id`),
-  
-  CONSTRAINT `FK_EMPLOYEE` 
-  FOREIGN KEY (`employee_id`) 
-  REFERENCES `employee` (`id`) 
-  
-  ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
-CREATE TABLE `todo_point` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `content` varchar(256) DEFAULT NULL,
-  `point_order` int NOT NULL,
-  `from_day_number` int  DEFAULT NULL,  
-  `to_day_number` int DEFAULT NULL,
-  `completed` BOOLEAN NOT NULL,
-  `todo_date_id` int DEFAULT NULL,
-
-  PRIMARY KEY (`id`),
-
-  KEY `FK_TODO_DATE_ID_idx` (`todo_date_id`),
-
-  CONSTRAINT `FK_TODO_DATE` 
-  FOREIGN KEY (`todo_date_id`) 
-  REFERENCES `todo_date` (`id`) 
-
-  ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
-
-CREATE TABLE `todo_extended_point` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `content` varchar(256) DEFAULT NULL,
-  `point_order` int NOT NULL,
-  `completed` BOOLEAN NOT NULL,
-  `todo_point_id` int DEFAULT NULL,
-
-  PRIMARY KEY (`id`),
-
-  KEY `FK_TODO_POINT_ID_idx` (`todo_point_id`),
-
-  CONSTRAINT `FK_TODO_POINT` 
-  FOREIGN KEY (`todo_point_id`) 
-  REFERENCES `todo_point` (`id`) 
-
-  ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
-
-
-
-
-
 SET FOREIGN_KEY_CHECKS = 1;
-
-
-

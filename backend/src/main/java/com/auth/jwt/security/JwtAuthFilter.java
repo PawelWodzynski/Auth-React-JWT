@@ -1,4 +1,4 @@
-package com.workflow.WorkFlowDEMO.security;
+package com.auth.jwt.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
